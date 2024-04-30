@@ -1,17 +1,19 @@
+const Posts = require("../models/postsModel");
+
 // Define postResolvers for Posts
 const postResolvers = {
     Query: {
-        getPosts: async (_, __, { db }) => {
-            const posts = await db.collection('posts').find().toArray();
+        fetchPosts: async () => {
+            const posts = await Posts.getPosts()
+            // console.log(posts);
             return posts;
         },
-        getPostById: async (_, { postId }, { db }) => {
-            const post = await db.collection('posts').findOne({ _id: ObjectId(postId) });
-            return post;
+        fetchPostById: async (_, { postId }) => {
+            return await Posts.getPostById(postId);
         },
     },
     Mutation: {
-        addPost: async (_, { content, tags, imgurl, authorId }, { db }) => {
+        addPost: async (_, { content, tags, imgurl, authorId }) => {
             const newPost = {
                 content,
                 tags,
@@ -23,8 +25,8 @@ const postResolvers = {
                 updatedAt: new Date().toISOString()
             };
 
-            const result = await db.collection('posts').insertOne(newPost);
-            return result.ops[0];
+            const post = await Posts.creatPost(newPost);
+            return await Posts.getPostById(post.insertedId)
         },
         commentPost: async (_, { postId, content, username }, { db }) => {
             const comment = {

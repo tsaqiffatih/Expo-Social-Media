@@ -5,10 +5,11 @@ const { postTypeDefs } = require('./schema/postsSchema')
 const { followTypeDefs } = require('./schema/followsSchema')
 const { userResolvers } = require('./resolver/userResolver')
 const { postResolvers } = require('./resolver/postsResolver')
+const { followsResolver } = require('./resolver/followsResolver')
 
 const server = new ApolloServer({
     typeDefs: [userTypeDefs, postTypeDefs, followTypeDefs],
-    resolvers: [userResolvers, postResolvers],
+    resolvers: [userResolvers, postResolvers, followsResolver],
     introspection: true
 })
 

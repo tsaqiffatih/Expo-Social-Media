@@ -7,11 +7,11 @@ const postTypeDefs = `#graphql
   type Post {
     _id: ID!
     content: String!
-    tags: [String]!
+    tags: [String]
     imgurl: String
     authorId: ID!
-    comments: [Comment]!
-    likes: [Like]!
+    comments: [Comment]
+    likes: [Like]
     createdAt: String!
     updatedAt: String!
   }
@@ -29,13 +29,13 @@ const postTypeDefs = `#graphql
     updatedAt: String!
   }
 
-  extend type Query {
-    getPosts: [Post]!
-    getPostById(postId: ID!): Post
+  type Query {
+    fetchPosts: [Post]!
+    fetchPostById(postId: ID!): Post
   }
 
-  extend type Mutation {
-    addPost(content: String!, tags: [String]!, imgurl: String, authorId: ID!): Post
+  type Mutation {
+    addPost(content: String!, imgurl: String, authorId: ID!): Post
     commentPost(postId: ID!, content: String!, username: String!): Post
     likePost(postId: ID!, username: String!): Post
   }
