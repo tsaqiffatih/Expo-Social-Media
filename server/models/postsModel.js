@@ -20,20 +20,25 @@ class Posts {
     return await Posts.collection().findOne({ _id: new ObjectId(postId) });;
   }
 
-  static async commentPost(postId, content, username) {
-    const comment = { content,
-       username, 
-       createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() 
-      };
-      
-    await Posts.collection().updateOne({ _id: ObjectId(postId) }, { $push: { comments: comment } });
-    return await Posts.collection().findOne({ _id: ObjectId(postId) });
+  static async createCommentPost(postId, content, username) {
+    const comment = {
+      content,
+      username,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+
+    return await Posts.collection().updateOne({ _id: new ObjectId(postId) }, { $push: { comments: comment } });
   }
 
-  static async likePost(postId, username) {
-    const like = { username, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
-    await Posts.collection().updateOne({ _id: ObjectId(postId) }, { $push: { likes: like } });
-    return await Posts.collection().findOne({ _id: ObjectId(postId) });
+  static async createLikePost(postId, username) {
+    const like = {
+      username,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+
+    return await Posts.collection().updateOne({ _id: new ObjectId(postId) }, { $push: { likes: like } });
   }
 }
 

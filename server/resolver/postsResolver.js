@@ -28,28 +28,16 @@ const postResolvers = {
             const post = await Posts.creatPost(newPost);
             return await Posts.getPostById(post.insertedId)
         },
-        commentPost: async (_, { postId, content, username }, { db }) => {
-            const comment = {
-                content,
-                username,
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString()
-            };
-
-            await db.collection('posts').updateOne({ _id: ObjectId(postId) }, { $push: { comments: comment } });
-
-            return await db.collection('posts').findOne({ _id: ObjectId(postId) });
+        addCommentPost: async (_, { postId, content, username }) => {
+            const post = await Posts.createCommentPost(postId, content, username);
+            // console.log(post);
+            
+            return await Posts.getPostById(postId)
         },
-        likePost: async (_, { postId, username }, { db }) => {
-            const like = {
-                username,
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString()
-            };
+        addLikePost: async (_, { postId, username }) => {
+            await Posts.createLikePost(postId,username)
 
-            await db.collection('posts').updateOne({ _id: ObjectId(postId) }, { $push: { likes: like } });
-
-            return await db.collection('posts').findOne({ _id: ObjectId(postId) });
+            return await Posts.getPostById(postId)
         },
     },
 
