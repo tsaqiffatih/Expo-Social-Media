@@ -12,10 +12,9 @@ const followTypeDefs = `#graphql
   }
 
   type Mutation {
-    followUser(followingId: ID!, followerId: ID!): Follow
+    followUser(followingId: ID!): Follow
   }
 `;
-
 
 module.exports = {
   followTypeDefs

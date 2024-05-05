@@ -10,17 +10,40 @@ class Posts {
     return await Posts.collection().insertOne(newPost)
   }
 
-  static async getPosts() {
-    // const posts = await Posts.collection().find().toArray();
-    // return posts;
-    return await Posts.collection().find().toArray()
+  static async getAllPosts() {
+    return await Posts.collection().aggregate([
+      {
+        $sort: { createdAt: -1 }
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "authorId",
+          foreignField: "_id",
+          as: "author"
+        }
+      },
+      { $unwind: "$author" }
+    ]).toArray()
   }
 
   static async getPostById(postId) {
-    return await Posts.collection().findOne({ _id: new ObjectId(postId) });;
+    const post = await Posts.collection().aggregate([
+      { $match: { _id: new ObjectId(postId) } },
+      {
+        $lookup: {
+          from: "users",
+          localField: "authorId",
+          foreignField: "_id",
+          as: "author"
+        }
+      },
+      { $unwind: "$author" }
+    ]).toArray()
+    return post[0]
   }
 
-  static async createCommentPost(postId, content, username) {
+  static async createCommentPost({ postId, content, username }) {
     const comment = {
       content,
       username,
@@ -31,14 +54,24 @@ class Posts {
     return await Posts.collection().updateOne({ _id: new ObjectId(postId) }, { $push: { comments: comment } });
   }
 
-  static async createLikePost(postId, username) {
-    const like = {
-      username,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    };
+  static async createLikePost({ postId, username }) {
+    const post = await Posts.getPostById(postId);
+    const existingLikeIndex = post.likes.findIndex(like => like.username === username);
 
-    return await Posts.collection().updateOne({ _id: new ObjectId(postId) }, { $push: { likes: like } });
+    if (existingLikeIndex !== -1) {
+      // kalo sudah like akan di remove likenya
+      post.likes.splice(existingLikeIndex, 1);
+    } else {
+      // kalo belum like akan di remove likenya
+      const like = {
+        username,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
+      post.likes.push(like);
+    }
+
+    return await Posts.collection().updateOne({ _id: new ObjectId(postId) }, { $set: { likes: post.likes } });
   }
 }
 
