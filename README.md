@@ -1,23 +1,92 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=14915534&assignment_repo_type=AssignmentRepo)
-# GC01
 
-## My Social Media App
+```markdown
+# Expo Social Media
 
-My Social Media App adalah sebuah aplikasi client(mobile)-server. Challenge ini juga merupakan salah satu aplikasi mobile pertama dan terakhir kamu, jadi kerjakan dengan baik sebagai bekal portofolio kamu. Pada challenge ini, kamu diminta untuk membuat aplikasi client(mobile)-server dengan detail sebagai berikut:
+This is a social media application built with React Native Expo for Android. The app includes features such as user registration, login, posting, commenting, user search, following, and liking posts.
 
-### Struktur Folder
-- [ ] server: untuk menyimpan aplikasi server GraphQL kamu 
-- [ ] app: untuk menyimpan aplikasi mobile React Native kamu
+## Table of Contents
 
+- [Tech Stack](#tech-stack)
+- [Features](#features)
+- [Installation](#installation)
+- [Environment Variables](#environment-variables)
+- [Running the Application](#running-the-application)
+- [Folder Structure](#folder-structure)
+- [License](#license)
 
-### Fitur
-- [ ] Fitur Register
-- [ ] Fitur Login
-- [ ] FItur Add Post
-- [ ] Fitur Show Post (berdasarkan yang paling baru)
-- [ ] Fitur Comment Post (Embedded Document)
-- [ ] Fitur search user berdasarkan nama atau username
-- [ ] Fitur follow
-- [ ] Menampilkan Followers dan Following dari setiap user (Reference with $lookup)
-- [ ] Fitur Like Post
-- [ ] Menampilkan total like dari setiap post
+## Tech Stack
+
+- [React Native](https://reactnative.dev/)
+- [Expo](https://expo.dev/)
+- [GraphQL](https://graphql.org/)
+- [MongoDB](https://www.mongodb.com/) (or any database of your choice)
+- [JWT](https://jwt.io/) for Authentication
+
+## Features
+
+- User Registration
+- User Login
+- Add Post
+- Show Post (sorted by newest)
+- Comment on Post (Embedded Document)
+- Search User (by name or username)
+- Follow/Unfollow Users
+- Display Followers and Following for each user (Reference with `$lookup`)
+- Like Post
+- Show total likes for each post
+
+## Installation
+
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/tsaqiffatih/Expo-Social-Media.git
+    cd social-media-app
+    ```
+
+2. Install dependencies for the server:
+    ```sh
+    cd server
+    npm install
+    ```
+
+3. Install dependencies for the client:
+    ```sh
+    cd ../client/tumblr
+    npm install
+    ```
+
+## Environment Variables
+
+Create a `.env` file in the `server` directory and add the necessary environment variables:
+
+```env
+DATABASE_URL=your_database_url
+SECRET_KEY=your_jwt_secret
+```
+
+## Running the Application
+
+1. Start the server:
+    ```sh
+    cd server
+    npm start
+    ```
+
+2. Start the app:
+    ```sh
+    cd ../client/tumblr
+    npx expo start
+    ```
+    Use the Expo app on your Android device or emulator to run the application.
+
+## Folder Structure
+
+```
+project-root/
+├── server/      # Contains the GraphQL server application
+└── app/         # Contains the React Native mobile application
+```
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
