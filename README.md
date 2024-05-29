@@ -1,5 +1,4 @@
 
-```markdown
 # Expo Social Media
 
 This is a social media application built with React Native Expo for Android. The app includes features such as user registration, login, posting, commenting, user search, following, and liking posts.
