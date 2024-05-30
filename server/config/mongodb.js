@@ -1,12 +1,8 @@
 require('dotenv').config();
 
-const username = process.env.MONGO_DB_USERNAME;
-const password = process.env.MONGO_DB_PASSWORD;
-
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
-const uri = `mongodb+srv://${username}:${password}@tsaqiffatih.qe9hdgt.mongodb.net/?retryWrites=true&w=majority`;
-
+const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri)
 const database = client.db("phase-3")
 
