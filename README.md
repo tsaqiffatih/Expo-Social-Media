@@ -1,4 +1,6 @@
 
+---
+
 # Expo Social Media
 
 This is a social media application built with React Native Expo for Android. The app includes features such as user registration, login, posting, commenting, user search, following, and liking posts.
@@ -39,7 +41,7 @@ This is a social media application built with React Native Expo for Android. The
 1. Clone the repository:
     ```sh
     git clone https://github.com/tsaqiffatih/Expo-Social-Media.git
-    cd social-media-app
+    cd Expo-Social-Media
     ```
 
 2. Install dependencies for the server:
@@ -83,9 +85,12 @@ SECRET_KEY=your_jwt_secret
 ```
 project-root/
 ├── server/      # Contains the GraphQL server application
-└── app/         # Contains the React Native mobile application
+└── client/      # Contains the React Native mobile application
+    └── tumblr/  # Contains the main application code
 ```
 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+---
